@@ -65,13 +65,6 @@ public class EventManager : MonoBehaviour
 
             }
 
-
-
-
-
-
     }
-
-
 
 }

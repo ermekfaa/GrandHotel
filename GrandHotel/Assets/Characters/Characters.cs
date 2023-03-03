@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
+using TMPro;
 
 public class Characters : MonoBehaviour
 {
@@ -12,18 +14,22 @@ public class Characters : MonoBehaviour
     Vector3 defaultSpawn = new(0, 1.5f,0);
     private static int count = 0;
 
-    
+    public TextMeshProUGUI dialogue;
+
     public GameObject[] level1Characters;
 
     SpriteRenderer characterRenderer;
 
+    
+
+    string story = "- Çok uzak yoldan geldim. Elinizdeki en uygun odayý verebilir misiniz?";
 
 
     // Start is called before the first frame update
     void Start()
     {
-        level1Characters = GetComponentsInChildren<GameObject>();    
-
+        
+        //StartCoroutine("PlayText");
     }
 
     // Update is called once per frame
@@ -58,12 +64,21 @@ public class Characters : MonoBehaviour
             Debug.Log("spawn");
             isCustomer = true;
             //Karakter interaksiyonu
-
+            
 
 
         }
 
     }
+
+    /*IEnumerator PlayText()
+    {
+        foreach (char c in story)
+        {
+            txt.text += c;
+            yield return new WaitForSeconds(0.125f);
+        }
+    }*/
 
 
 
