@@ -4,67 +4,69 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using TMPro;
+using static Bell;
 
 public class Characters : MonoBehaviour
 {
+    public delegate void onCharacterCall();
+    public static event onCharacterCall CharacterCall;
+
     bool isCustomer = false;
     Color defaultColor = new Color(1f, 1f, 1f, 1.0f);
     Color fadeColor = new Color(1f,1f,1f,0f);
 
     Vector3 defaultSpawn = new(0, 1.5f,0);
-    private static int count = 0;
+    public static int count = 0;
 
     public TextMeshProUGUI dialogue;
 
-    public GameObject[] level1Characters;
-
     SpriteRenderer characterRenderer;
 
-    
-
-    string story = "- Çok uzak yoldan geldim. Elinizdeki en uygun odayý verebilir misiniz?";
+    public Sprite[] sprites;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-        //StartCoroutine("PlayText");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        characterRenderer = GetComponent<SpriteRenderer>();
     }
 
 
     void OnEnable()
     {
-        Bell.BellTriggered += CallCustomer;
+        BellTriggered += CallCustomer;
     }
 
     void OnDisable()
     {
-        Bell.BellTriggered -= CallCustomer;
+        BellTriggered -= CallCustomer;
     }
 
     void CallCustomer()
     {
         if (!isCustomer) 
         {
+            characterRenderer.sprite = sprites[count];
+            //characterRenderer.color = Color.Lerp(defaultColor, fadeColor, Time.deltaTime * 1f);
+
             // Karakter solma efekti
-            characterRenderer = level1Characters[count].GetComponent<SpriteRenderer>();
+            //characterRenderer = level1Characters[count].GetComponent<SpriteRenderer>();
             //characterRenderer.color = fadeColor;
 
-            Instantiate(level1Characters[count],defaultSpawn,Quaternion.identity);
-            //characterRenderer.color = Color.Lerp(characterRenderer.color, defaultColor, 1f);           
+            //Instantiate(level1Characters[count],defaultSpawn,Quaternion.identity);
+            //characterRenderer.color = Color.Lerp(characterRenderer.color, defaultColor, 1f);
+            
+
+
+            CharacterCall();
 
             count += 1;
             Debug.Log("spawn");
             isCustomer = true;
             //Karakter interaksiyonu
+
             
+
+
 
 
         }
