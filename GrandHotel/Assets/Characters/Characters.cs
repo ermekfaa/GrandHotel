@@ -11,7 +11,7 @@ public class Characters : MonoBehaviour
     public delegate void onCharacterCall();
     public static event onCharacterCall CharacterCall;
 
-    bool isCustomer = false;
+    public static bool isCustomer = false;
     Color defaultColor = new Color(1f, 1f, 1f, 1.0f);
     Color fadeColor = new Color(1f,1f,1f,0f);
 
@@ -55,7 +55,6 @@ public class Characters : MonoBehaviour
             //Instantiate(level1Characters[count],defaultSpawn,Quaternion.identity);
             //characterRenderer.color = Color.Lerp(characterRenderer.color, defaultColor, 1f);
 
-            
             CharacterCall();
 
             

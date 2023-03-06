@@ -6,8 +6,9 @@ using UnityEngine.UIElements;
 
 public class Key : MonoBehaviour
 {
-    public delegate void onCorrectKey();
-    public static event onCorrectKey CorrectKey; 
+    public delegate void onKey();
+    public static event onKey CorrectKey;
+    public static event onKey WrongKey;
 
     protected Rigidbody2D rb;
     public Vector2 com;
@@ -99,6 +100,10 @@ public class Key : MonoBehaviour
 
                 CorrectKey();
                 // NEXTLINE
+            }
+            else
+            {
+                WrongKey();
             }
         }
 

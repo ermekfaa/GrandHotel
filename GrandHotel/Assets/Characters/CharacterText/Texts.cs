@@ -12,11 +12,14 @@ public class Texts : MonoBehaviour
     public Texture BoxTexture;
     //string script1 = "- Çok uzak yoldan geldim. Elinizdeki en uygun odayý verebilir misiniz?";
     string[,] scriptList = {{ "Rue: Ýyi günler, uzun bir yolculuktan geldim yol üstünde kalacak yer olarak burayý buldum. Uygun odanýz var mýdýr?",
-                            "Rue: Fiyatý da biraz uygun olursa tabii...","Teþekkürler" },
+                            "Rue: Fiyatý da biraz uygun olursa tabii...","Rue: Teþekkürler","Rue: Daha ucuz demiþtim" },
 
-                            {"asdsadsadsa","asdqweqweqeqe","asd"} };
+                            {"asdsadsadsa","asdqweqweqeqe","asd","asdd"} };
+
 
     public static int[] stopLine = { 1, 0 }; // kaçýncý linedan sonra dursun
+    public int[] correctText = { 2, 2 };
+    public int[] wrongText = {3,3 };
 
     private Coroutine displayLineCoroutine; 
     private bool canContinueNextLine = false;
@@ -36,7 +39,7 @@ public class Texts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Characters.count + " " + index);
+        Debug.Log(Characters.count + " " + index);
         
 
 
@@ -76,14 +79,15 @@ public class Texts : MonoBehaviour
     void OnEnable()
     {
         Characters.CharacterCall += TextEnable;
-        Key.CorrectKey += KeyTextCancel;
+        Key.CorrectKey += CorrectKeyText;
+        Key.WrongKey += WrongKeyText;
     }
 
     void OnDisable()
     {
         Characters.CharacterCall -= TextEnable;
-
-        Key.CorrectKey -= KeyTextCancel;
+        Key.CorrectKey -= CorrectKeyText;
+        Key.WrongKey -= WrongKeyText;
     }
 
     void TextEnable() // baþlatma
@@ -115,11 +119,27 @@ public class Texts : MonoBehaviour
         }
     }
 
-    void KeyTextCancel()
+    void CorrectKeyText()
     {
         StopAllCoroutines();
-        NextLine();
+        index = 1;
+        SpesificLine();
+
+
+        //SpecificLine(correctText[Characters.count]);
+        //Karakter transparant olsun
+        Characters.isCustomer = false;
     }
+
+    void WrongKeyText()
+    {
+        StopAllCoroutines();
+        index = 2;
+        SpesificLine();
+        
+        
+    }
+
 
     void NextLine() //2. metine geçer
     {
@@ -134,4 +154,20 @@ public class Texts : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    void SpesificLine() //2. metine geçer
+    {
+        if (index < scriptList.Length - 1)
+        {
+            index++;
+            txt.text = string.Empty;
+            StartCoroutine((PlayText()));
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
 }
