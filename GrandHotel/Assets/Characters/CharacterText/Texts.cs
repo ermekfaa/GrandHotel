@@ -12,9 +12,11 @@ public class Texts : MonoBehaviour
     public Texture BoxTexture;
     //string script1 = "- Çok uzak yoldan geldim. Elinizdeki en uygun odayý verebilir misiniz?";
     string[,] scriptList = {{ "Rue: Ýyi günler, uzun bir yolculuktan geldim yol üstünde kalacak yer olarak burayý buldum. Uygun odanýz var mýdýr?",
-                            "Rue: Fiyatý da biraz uygun olursa tabii...","Teþekkürler" },{"asdsadsadsa","asdqweqweqeqe","asd"} };
+                            "Rue: Fiyatý da biraz uygun olursa tabii...","Teþekkürler" },
 
-    int[] stopLine = { 1, 0 }; // kaçýncý linedan sonra dursun
+                            {"asdsadsadsa","asdqweqweqeqe","asd"} };
+
+    public static int[] stopLine = { 1, 0 }; // kaçýncý linedan sonra dursun
 
     private Coroutine displayLineCoroutine; 
     private bool canContinueNextLine = false;
@@ -74,13 +76,14 @@ public class Texts : MonoBehaviour
     void OnEnable()
     {
         Characters.CharacterCall += TextEnable;
-        Key.CorrectKey += NextLine;
+        Key.CorrectKey += KeyTextCancel;
     }
 
     void OnDisable()
     {
-        Characters.CharacterCall -= TextEnable; 
-        Key.CorrectKey -= NextLine;
+        Characters.CharacterCall -= TextEnable;
+
+        Key.CorrectKey -= KeyTextCancel;
     }
 
     void TextEnable() // baþlatma
@@ -110,6 +113,12 @@ public class Texts : MonoBehaviour
             yield return new WaitForSeconds(0.0625f);
             
         }
+    }
+
+    void KeyTextCancel()
+    {
+        StopAllCoroutines();
+        NextLine();
     }
 
     void NextLine() //2. metine geçer

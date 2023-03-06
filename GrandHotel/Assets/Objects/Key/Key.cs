@@ -90,12 +90,13 @@ public class Key : MonoBehaviour
         
 
 
-        if (Characters.count > -1)
+        if (Characters.count > -1 && Texts.index == Texts.stopLine[Characters.count])
         {
-            if (gameObject.name == "key" + keyToGive[Characters.count]) // hangi anahtarý istedikleri
+            if (gameObject.name == "key" + keyToGive[Characters.count] ) // hangi anahtarý istedikleri
             {
                 Debug.Log("asd");
                 gameObject.SetActive(false);
+
                 CorrectKey();
                 // NEXTLINE
             }
