@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 
 public class Key : MonoBehaviour
 {
+    public delegate void onCorrectKey();
+    public static event onCorrectKey CorrectKey; 
+
     protected Rigidbody2D rb;
     public Vector2 com;
     public bool Awake;
@@ -13,6 +16,10 @@ public class Key : MonoBehaviour
     Vector3 bigsize = new Vector3(1.5f, 1.5f, 1.5f);
     Vector3 normalsize = new Vector3(1, 1, 1);
     Vector3 customerPos = new Vector3(0, 1.5f, 0);
+
+    private bool isIn = false;
+
+    string[] keyToGive = { "101", "102" };
 
 
 
@@ -33,6 +40,8 @@ public class Key : MonoBehaviour
 
     private void Update()
     {
+
+
         if (!isDragging)
         {
             transform.position = Vector3.Lerp(transform.position, startPoint, 2 * Time.deltaTime);
@@ -57,6 +66,9 @@ public class Key : MonoBehaviour
     private void OnMouseExit()
     {
         transform.localScale = normalsize;
+
+        
+        
     }
 
     private void OnMouseDown()
@@ -75,15 +87,26 @@ public class Key : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false;
-        if (Mathf.Abs(gameObject.transform.position.x - customerPos.x) < 0.5 && Mathf.Abs(gameObject.transform.position.y - customerPos.y) < 2.0)
+        
+
+
+        if (Characters.count > -1)
         {
-            Debug.Log("destroyed");
-            
+            if (gameObject.name == "key" + keyToGive[Characters.count]) // hangi anahtarý istedikleri
+            {
+                Debug.Log("asd");
+                gameObject.SetActive(false);
+                CorrectKey();
+                // NEXTLINE
+            }
         }
-        else
-        {
-            Debug.Log("not");
-        }
+
+
+
+
+
+
+
     }
 
     #region highlight key
@@ -91,7 +114,8 @@ public class Key : MonoBehaviour
     {
         if (collision.gameObject.tag == "Customer")
         {
-            spriteRenderer.color = new Color(1, 0.85f, 0.85f);
+            isIn = true;
+            spriteRenderer.color = new Color(1, 0.75f, 0.75f);
         }
 
     }
@@ -100,10 +124,14 @@ public class Key : MonoBehaviour
     {
         if (collision.gameObject.tag == "Customer")
         {
+            isIn = false;
             spriteRenderer.color = new Color(1, 1f, 1f);
         }
     }
 
     #endregion 
+
+
+
 
 }

@@ -16,9 +16,8 @@ public class Characters : MonoBehaviour
     Color fadeColor = new Color(1f,1f,1f,0f);
 
     Vector3 defaultSpawn = new(0, 1.5f,0);
-    public static int count = 0;
+    public static int count = -1;
 
-    public TextMeshProUGUI dialogue;
 
     SpriteRenderer characterRenderer;
 
@@ -45,6 +44,7 @@ public class Characters : MonoBehaviour
     {
         if (!isCustomer) 
         {
+            count += 1;
             characterRenderer.sprite = sprites[count];
             //characterRenderer.color = Color.Lerp(defaultColor, fadeColor, Time.deltaTime * 1f);
 
@@ -54,17 +54,16 @@ public class Characters : MonoBehaviour
 
             //Instantiate(level1Characters[count],defaultSpawn,Quaternion.identity);
             //characterRenderer.color = Color.Lerp(characterRenderer.color, defaultColor, 1f);
+
             
-
-
             CharacterCall();
 
-            count += 1;
+            
             Debug.Log("spawn");
             isCustomer = true;
             //Karakter interaksiyonu
 
-            
+
 
 
 
