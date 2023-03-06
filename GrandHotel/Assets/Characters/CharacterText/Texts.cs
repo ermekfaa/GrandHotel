@@ -11,13 +11,13 @@ public class Texts : MonoBehaviour
     TextMeshProUGUI txt;
     public Texture BoxTexture;
     //string script1 = "- Çok uzak yoldan geldim. Elinizdeki en uygun odayý verebilir misiniz?";
-    string[,] scriptList = {{ "Rue: Ýyi günler, uzun bir yolculuktan geldim yol üstünde kalacak yer olarak burayý buldum. Uygun odanýz var mýdýr?",
-                            "Rue: Fiyatý da biraz uygun olursa tabii...","Rue: Teþekkürler","Rue: Daha ucuz demiþtim" },
+    string[,] scriptList = {{ "Ýyi günler, uzun bir yolculuktan geldim yol üstünde kalacak yer olarak burayý buldum. Uygun odanýz var mýdýr?",
+                            "Fiyatý da biraz uygun olursa tabii...","Teþekkürler","Daha ucuz demiþtim" },
 
-                            {"asdsadsadsa","asdqweqweqeqe","asd","asdd"} };
+                            {"Merhaba, adým Iyoko gelmeden önce kayýt yaptýrmýþtým","7 numara olmasý lazým","asd","asdd"} };
 
 
-    public static int[] stopLine = { 1, 0 }; // kaçýncý linedan sonra dursun
+    public static int[] stopLine = { 1, 1 }; // kaçýncý linedan sonra dursun
     public int[] correctText = { 2, 2 };
     public int[] wrongText = {3,3 };
 
@@ -50,7 +50,7 @@ public class Texts : MonoBehaviour
                 oneLine = false;
             }
 
-            else if (index == stopLine[Characters.count]) // metnin duracaðý yerler
+            else if (index >= stopLine[Characters.count]) // metnin duracaðý yerler
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -124,7 +124,8 @@ public class Texts : MonoBehaviour
         StopAllCoroutines();
         index = 1;
         SpesificLine();
-
+        oneLine = false;
+        startText = false;
 
         //SpecificLine(correctText[Characters.count]);
         //Karakter transparant olsun
