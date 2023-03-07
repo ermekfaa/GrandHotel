@@ -5,6 +5,7 @@ using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using TMPro;
 using static Bell;
+using UnityEngine.UIElements;
 
 public class Characters : MonoBehaviour
 {
@@ -18,17 +19,23 @@ public class Characters : MonoBehaviour
     Vector3 defaultSpawn = new(0, 1.5f,0);
     public static int count = -1;
 
+    private bool transparent = false;
 
-    SpriteRenderer characterRenderer;
+    SpriteRenderer spriteRenderer;
 
     public Sprite[] sprites;
 
 
     private void Start()
     {
-        characterRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = fadeColor;
     }
 
+    private void Update()
+    {
+        MakeCustomerVisible();
+    }
 
     void OnEnable()
     {
@@ -45,9 +52,9 @@ public class Characters : MonoBehaviour
         if (!isCustomer) 
         {
             count += 1;
-            characterRenderer.sprite = sprites[count];
-            //characterRenderer.color = Color.Lerp(defaultColor, fadeColor, Time.deltaTime * 1f);
-
+            spriteRenderer.sprite = sprites[count];
+            transparent = true;
+            StartCoroutine(waitTillVisible());
             // Karakter solma efekti
             //characterRenderer = level1Characters[count].GetComponent<SpriteRenderer>();
             //characterRenderer.color = fadeColor;
@@ -62,14 +69,32 @@ public class Characters : MonoBehaviour
             isCustomer = true;
             //Karakter interaksiyonu
 
-
-
-
-
-
         }
 
     }
+
+    IEnumerator waitTillVisible()
+    {
+        
+        yield return new WaitForSeconds(2);
+    }
+
+    void MakeCustomerVisible()
+    {
+        if (transparent)
+        {
+
+            spriteRenderer.color = Color.Lerp(spriteRenderer.color, defaultColor, Time.deltaTime * 1);
+            Debug.Log("transp");
+            if ((Mathf.Abs(spriteRenderer.color.a - defaultColor.a) <= 0.01))
+            {
+                transparent = false;
+            }
+        }
+    }
+
+
+
 
     /*IEnumerator PlayText()
     {

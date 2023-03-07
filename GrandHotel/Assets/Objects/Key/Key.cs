@@ -20,7 +20,7 @@ public class Key : MonoBehaviour
 
     private bool isIn = false;
 
-    string[] keyToGive = { "101", "102" };
+    string[] keyToGive = { "101", "102", "103", "104", "105" };
 
 
 
@@ -91,7 +91,7 @@ public class Key : MonoBehaviour
         
 
 
-        if (Characters.count > -1 && Texts.index == Texts.stopLine[Characters.count])
+        if (Texts.index >= Texts.stopLine[Characters.count] && Characters.isCustomer)
         {
             if (gameObject.name == "key" + keyToGive[Characters.count] ) // hangi anahtarý istedikleri
             {

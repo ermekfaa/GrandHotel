@@ -14,12 +14,19 @@ public class Texts : MonoBehaviour
     string[,] scriptList = {{ "Ýyi günler, uzun bir yolculuktan geldim yol üstünde kalacak yer olarak burayý buldum. Uygun odanýz var mýdýr?",
                             "Fiyatý da biraz uygun olursa tabii...","Teþekkürler","Daha ucuz demiþtim" },
 
-                            {"Merhaba, adým Iyoko gelmeden önce kayýt yaptýrmýþtým","7 numara olmasý lazým","asd","asdd"} };
+                            {"Merhaba, adým Iyoko gelmeden önce kayýt yaptýrmýþtým","7 numara olmasý lazým","Teþekkürler","Yanlýþ anahtarý verdiniz sanýrým."},
+
+                            {"a","b","c","d" },
+
+                            {"q","w","e","r" },
+
+                            {"a","s","d","f" },
+                            };
 
 
-    public static int[] stopLine = { 1, 1 }; // kaçýncý linedan sonra dursun
-    public int[] correctText = { 2, 2 };
-    public int[] wrongText = {3,3 };
+    public static int[] stopLine = { 1, 1, 1, 1, 1}; // kaçýncý linedan sonra dursun
+    public int[] correctText = { 2, 2, 2, 2, 2 }; // doðru anahtar texti
+    public int[] wrongText = {3, 3, 3, 3, 3 }; // yanlýþ anahtar texti
 
     private Coroutine displayLineCoroutine; 
     private bool canContinueNextLine = false;
@@ -30,8 +37,8 @@ public class Texts : MonoBehaviour
     void Start()
     {
         //Text sets your text to say this message
-        txt = GetComponent<TextMeshProUGUI>();
-        txt.text = string.Empty;
+        txt = GetComponent<TextMeshProUGUI>(); 
+        txt.text = string.Empty; // texti boþ yapar
         
         
     }
@@ -40,10 +47,10 @@ public class Texts : MonoBehaviour
     void Update()
     {
         Debug.Log(Characters.count + " " + index);
+            
+        // 0 3
         
-
-
-        if (startText && Input.GetMouseButtonDown(0))
+        if (Characters.isCustomer && Input.GetMouseButtonDown(0)) // müþteri geldi mi diye bakar
         {
             if (oneLine) // bug olmasýn diye
             {
@@ -92,7 +99,7 @@ public class Texts : MonoBehaviour
 
     void TextEnable() // baþlatma
     {
-        
+        txt.text = "";
         index = 0;
 
 
@@ -124,12 +131,13 @@ public class Texts : MonoBehaviour
         StopAllCoroutines();
         index = 1;
         SpesificLine();
-        oneLine = false;
+        oneLine = true;
         startText = false;
+        Characters.isCustomer = false;
 
         //SpecificLine(correctText[Characters.count]);
         //Karakter transparant olsun
-        Characters.isCustomer = false;
+
     }
 
     void WrongKeyText()

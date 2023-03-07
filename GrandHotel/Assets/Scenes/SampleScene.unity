@@ -626,6 +626,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoxTexture: {fileID: 0}
+  correctText: 0200000002000000
+  wrongText: 0300000003000000
 --- !u!1 &865312973 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 449481543618425358, guid: ef7abcddca9f9b4469ae215af167a895, type: 3}
@@ -793,10 +795,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740ee0bd0118b82428d8486bdd586518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: f0830495859f49d4381603001251a6f6, type: 3}
   - {fileID: 21300000, guid: 0f322773e23313749a9958be040705ca, type: 3}
+  - {fileID: 21300000, guid: 1a3415e904c6c0d4aa2aa1ba8dc86b69, type: 3}
+  - {fileID: 21300000, guid: bee9a892b2ace4d449a0b49f29718801, type: 3}
+  - {fileID: 21300000, guid: 5cb67de6a823a53498887cc45b22d951, type: 3}
 --- !u!1001 &1187730607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1272,7 +1276,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f778394e36104c448e444d90a430475, type: 3}
   m_Color: {r: 0.935895, g: 1, b: 0.2584905, a: 1}
   m_FlipX: 0
   m_FlipY: 0
