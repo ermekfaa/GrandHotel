@@ -99,6 +99,7 @@ public class Key : MonoBehaviour
                 gameObject.SetActive(false);
 
                 CorrectKey();
+                Characters.isCustomer = false;
                 // NEXTLINE
             }
             else

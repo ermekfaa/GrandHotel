@@ -46,7 +46,7 @@ public class Texts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Characters.count + " " + index);
+        //Debug.Log(Characters.count + " " + index);
             
         // 0 3
         
@@ -82,10 +82,6 @@ public class Texts : MonoBehaviour
 
 
     }
-    IEnumerator waitTillVisible()
-    { 
-        yield return new WaitForSeconds(2);
-    }
 
     void OnEnable()
     {
@@ -105,9 +101,7 @@ public class Texts : MonoBehaviour
     {
         txt.text = "";
         index = 0;
-
-        StartCoroutine(waitTillVisible());
-
+  
 
         StartCoroutine(PlayText());
 

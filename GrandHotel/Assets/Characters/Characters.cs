@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using static Bell;
 using UnityEngine.UIElements;
+using static Characters;
 
 public class Characters : MonoBehaviour
 {
@@ -34,7 +35,23 @@ public class Characters : MonoBehaviour
 
     private void Update()
     {
-        MakeCustomerVisible();
+        if (isCustomer)
+        {
+            spriteRenderer.color = Color.Lerp(spriteRenderer.color, defaultColor, Time.deltaTime * 1);
+            if(defaultColor.a - spriteRenderer.color.a == 0.02)
+            {
+                spriteRenderer.color = defaultColor;
+            }
+        }
+        else
+        {
+            spriteRenderer.color = Color.Lerp(spriteRenderer.color, fadeColor, Time.deltaTime * 2);
+            if (spriteRenderer.color.a - fadeColor.a == 0.02)
+            {
+                spriteRenderer.color = fadeColor;
+            }
+        }
+        //MakeCustomerVisible();
     }
 
     void OnEnable()
@@ -53,43 +70,48 @@ public class Characters : MonoBehaviour
         {
             count += 1;
             spriteRenderer.sprite = sprites[count];
-            transparent = true;
-
-            // Karakter solma efekti
-            //characterRenderer = level1Characters[count].GetComponent<SpriteRenderer>();
-            //characterRenderer.color = fadeColor;
-
-            //Instantiate(level1Characters[count],defaultSpawn,Quaternion.identity);
-            //characterRenderer.color = Color.Lerp(characterRenderer.color, defaultColor, 1f);
 
             CharacterCall();
 
-            
             Debug.Log("spawn");
             isCustomer = true;
             //Karakter interaksiyonu
+        }
+        
+    }
+
+    /*
+
+        void MakeCustomerVisible()
+        {
+            while (spriteRenderer.color.a != defaultColor.a)
+            {
+
+                spriteRenderer.color = Color.Lerp(spriteRenderer.color, defaultColor, Time.deltaTime * 1);
+                Debug.Log("transp");
+                if ((Mathf.Abs(spriteRenderer.color.a - defaultColor.a) <= 0.01))
+                {
+                    spriteRenderer.color = defaultColor;
+                }
+            }
 
         }
 
-    }
-
-    
-
-    void MakeCustomerVisible()
-    {
-        if (transparent)
+        void MakeCustomerInvisible()
         {
-
-            spriteRenderer.color = Color.Lerp(spriteRenderer.color, defaultColor, Time.deltaTime * 1);
-            Debug.Log("transp");
-            if ((Mathf.Abs(spriteRenderer.color.a - defaultColor.a) <= 0.01))
+            while (spriteRenderer.color.a != fadeColor.a)
             {
-                transparent = false;
+
+                spriteRenderer.color = Color.Lerp(spriteRenderer.color, fadeColor, Time.deltaTime * 1);
+                Debug.Log("transp");
+                if ((Mathf.Abs(spriteRenderer.color.a - defaultColor.a) <= 0.01))
+                {
+                    spriteRenderer.color = fadeColor;
+                }
             }
         }
-    }
 
-
+    */
 
 
     /*IEnumerator PlayText()
