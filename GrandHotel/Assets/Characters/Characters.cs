@@ -54,7 +54,7 @@ public class Characters : MonoBehaviour
             count += 1;
             spriteRenderer.sprite = sprites[count];
             transparent = true;
-            StartCoroutine(waitTillVisible());
+
             // Karakter solma efekti
             //characterRenderer = level1Characters[count].GetComponent<SpriteRenderer>();
             //characterRenderer.color = fadeColor;
@@ -73,11 +73,7 @@ public class Characters : MonoBehaviour
 
     }
 
-    IEnumerator waitTillVisible()
-    {
-        
-        yield return new WaitForSeconds(2);
-    }
+    
 
     void MakeCustomerVisible()
     {

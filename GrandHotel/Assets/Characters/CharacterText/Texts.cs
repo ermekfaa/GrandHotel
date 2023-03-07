@@ -82,6 +82,10 @@ public class Texts : MonoBehaviour
 
 
     }
+    IEnumerator waitTillVisible()
+    { 
+        yield return new WaitForSeconds(2);
+    }
 
     void OnEnable()
     {
@@ -101,6 +105,8 @@ public class Texts : MonoBehaviour
     {
         txt.text = "";
         index = 0;
+
+        StartCoroutine(waitTillVisible());
 
 
         StartCoroutine(PlayText());
